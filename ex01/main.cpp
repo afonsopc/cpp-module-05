@@ -6,11 +6,12 @@
 /*   By: afpachec <afpachec@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:45:27 by afpachec          #+#    #+#             */
-/*   Updated: 2025/07/10 17:03:50 by afpachec         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:53:19 by afpachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <iostream>
 
 void	testConstructors() {
@@ -149,6 +150,138 @@ void	testOutputOperator() {
     }
 }
 
+void	testFormConstructors() {
+    std::cout << "\n=== Testing Form Constructors ===" << std::endl;
+    try {
+        Form f1;
+        std::cout << "Default form: " << f1 << std::endl;
+        Form f2("Contract", 25, 5);
+        std::cout << "Valid form: " << f2 << std::endl;
+        Form f3(f2);
+        std::cout << "Copy form: " << f3 << std::endl;
+        Form f4("Assignment", 50, 10);
+        std::cout << "Before assignment: " << f4 << std::endl;
+        f4 = f2;
+        std::cout << "After assignment: " << f4 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testFormInvalidGrades() {
+    std::cout << "\n=== Testing Form Invalid Grades ===" << std::endl;
+    try {
+        Form f1("InvalidHigh", 0, 50);
+        std::cout << "This shouldn't print: " << f1 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Grade to sign 0 - Exception caught: " << e.what() << std::endl;
+    }
+    try {
+        Form f2("InvalidLow", 151, 50);
+        std::cout << "This shouldn't print: " << f2 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Grade to sign 151 - Exception caught: " << e.what() << std::endl;
+    }
+    try {
+        Form f3("InvalidExecute", 50, 0);
+        std::cout << "This shouldn't print: " << f3 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Grade to execute 0 - Exception caught: " << e.what() << std::endl;
+    }
+    try {
+        Form f4("InvalidExecute2", 50, 151);
+        std::cout << "This shouldn't print: " << f4 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Grade to execute 151 - Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testFormSigning() {
+    std::cout << "\n=== Testing Form Signing ===" << std::endl;
+    try {
+        Form form("TestForm", 50, 25);
+        Bureaucrat highRank("HighRank", 30);
+        Bureaucrat lowRank("LowRank", 60);
+        std::cout << "Initial form: " << form << std::endl;
+        std::cout << "High rank bureaucrat: " << highRank << std::endl;
+        std::cout << "Low rank bureaucrat: " << lowRank << std::endl;
+        form.beSigned(highRank);
+        std::cout << "After signing by high rank: " << form << std::endl;
+        Form form2("TestForm2", 50, 25);
+        form2.beSigned(lowRank);
+        std::cout << "This shouldn't print" << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Low rank signing - Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testFormAlreadySigned() {
+    std::cout << "\n=== Testing Form Already Signed ===" << std::endl;
+    try {
+        Form form("AlreadySignedTest", 50, 25);
+        Bureaucrat bureaucrat("TestBureaucrat", 30);
+        std::cout << "Initial form: " << form << std::endl;
+        form.beSigned(bureaucrat);
+        std::cout << "After first signing: " << form << std::endl;
+        form.beSigned(bureaucrat);
+        std::cout << "This shouldn't print" << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Already signed - Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testBureaucratSignForm() {
+    std::cout << "\n=== Testing Bureaucrat signForm Method ===" << std::endl;
+    try {
+        Form form1("Contract1", 50, 25);
+        Form form2("Contract2", 20, 10);
+        Bureaucrat bureaucrat("TestBureaucrat", 30);
+        std::cout << "Bureaucrat: " << bureaucrat << std::endl;
+        std::cout << "Form1: " << form1 << std::endl;
+        std::cout << "Form2: " << form2 << std::endl;
+        bureaucrat.signForm(form1);
+        std::cout << "After signing form1: " << form1 << std::endl;
+        bureaucrat.signForm(form2);
+        std::cout << "Form2 after failed signing: " << form2 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testFormGetters() {
+    std::cout << "\n=== Testing Form Getters ===" << std::endl;
+    try {
+        Form form("TestForm", 75, 25);
+        Bureaucrat bureaucrat("TestBureaucrat", 50);
+        std::cout << "Form name: " << form.getName() << std::endl;
+        std::cout << "Grade to sign: " << form.getGradeToSign() << std::endl;
+        std::cout << "Grade to execute: " << form.getGradeToExecute() << std::endl;
+        std::cout << "Is signed: " << (form.getIsSigned() ? "Yes" : "No") << std::endl;
+        form.beSigned(bureaucrat);
+        std::cout << "After signing - Is signed: " << (form.getIsSigned() ? "Yes" : "No") << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
+    }
+}
+
+void	testFormEdgeCases() {
+    std::cout << "\n=== Testing Form Edge Cases ===" << std::endl;
+    try {
+        Form form1("BoundaryForm", 1, 150);
+        std::cout << "Boundary form: " << form1 << std::endl;
+        Bureaucrat topBureaucrat("TopBureaucrat", 1);
+        Bureaucrat bottomBureaucrat("BottomBureaucrat", 150);
+        form1.beSigned(topBureaucrat);
+        std::cout << "After signing with top bureaucrat: " << form1 << std::endl;
+        Form form2("ExactMatch", 100, 50);
+        Bureaucrat exactBureaucrat("ExactBureaucrat", 100);
+        form2.beSigned(exactBureaucrat);
+        std::cout << "Exact grade match form: " << form2 << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
+    }
+}
+
 int	main() {
     std::cout << "=== BUREAUCRAT TESTING ===" << std::endl;
     testConstructors();
@@ -159,5 +292,13 @@ int	main() {
     testBoundaryDecrement();
     testSetGrade();
     testOutputOperator();
+    std::cout << "\n=== FORM TESTING ===" << std::endl;
+    testFormConstructors();
+    testFormInvalidGrades();
+    testFormSigning();
+    testFormAlreadySigned();
+    testBureaucratSignForm();
+    testFormGetters();
+    testFormEdgeCases();
     std::cout << "\n=== END OF TESTS ===" << std::endl;
 }
