@@ -20,6 +20,8 @@
         "string_view": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "cctype": "cpp"
+        "cctype": "cpp",
+        "fstream": "cpp",
+        "iostream": "cpp"
     }
 }
