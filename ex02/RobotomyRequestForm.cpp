@@ -6,12 +6,14 @@
 /*   By: afpachec <afpachec@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:41:57 by afpachec          #+#    #+#             */
-/*   Updated: 2025/07/10 23:53:26 by afpachec         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:11:01 by afpachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RobotomyRequestForm.hpp"
 
+RobotomyRequestForm::RobotomyRequestForm(void)
+	: AForm("RobotomyRequestForm", 72, 45), target("default_target") {}
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
 	: AForm("RobotomyRequestForm", 72, 45), target(target) {}
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &rhs)

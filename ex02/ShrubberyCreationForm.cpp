@@ -6,7 +6,7 @@
 /*   By: afpachec <afpachec@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:41:57 by afpachec          #+#    #+#             */
-/*   Updated: 2025/07/11 00:03:19 by afpachec         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:11:16 by afpachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 const char	*ShrubberyCreationForm::Exception::what() const throw() { return ("ShrubberyCreationForm Exception"); }
 const char	*ShrubberyCreationForm::FileOpenException::what() const throw() { return ("File open exception"); }
 
+ShrubberyCreationForm::ShrubberyCreationForm(void)
+	: AForm("ShrubberyCreationForm", 145, 137), target("default_target") {}
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
 	: AForm("ShrubberyCreationForm", 145, 137), target(target) {}
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &rhs)

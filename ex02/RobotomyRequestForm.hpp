@@ -6,7 +6,7 @@
 /*   By: afpachec <afpachec@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:32:50 by afpachec          #+#    #+#             */
-/*   Updated: 2025/07/10 23:50:27 by afpachec         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:11:09 by afpachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ class RobotomyRequestForm: public AForm {
 	private:
 		std::string	target;
 	public:
+		RobotomyRequestForm(void);
 		RobotomyRequestForm(std::string target);
 		RobotomyRequestForm(const RobotomyRequestForm &rhs);
 		RobotomyRequestForm	&operator=(const RobotomyRequestForm &rhs);
